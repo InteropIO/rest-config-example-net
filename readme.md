@@ -34,7 +34,7 @@ To enable fetching applications from the REST service, you need to add a new ent
     }
 ]
 ``` 
-!!! Note that you need to replace <URL> with the actual url of the service 
+!!! Note that you need to replace **URL** with the actual url of the service 
 
 To enable fetching/storing layouts from the REST service, you need to update your layouts store to be of type rest and add the correct URL:
 
@@ -49,7 +49,7 @@ To enable fetching/storing layouts from the REST service, you need to update you
 
 ```
 
-!!! Note that you need to replace <URL> with the actual url of the service
+!!! Note that you need to replace **URL** with the actual url of the service
 
 # Advanced
 
