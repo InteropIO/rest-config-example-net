@@ -1,0 +1,6 @@
+/Glue42RestConfig/packages/*
+/packages/*
+/Glue42RestConfig/bin/*
+/Glue42RestConfig/obj/*
+/.vs/*
+/Glue42RestConfig/.vs/*
