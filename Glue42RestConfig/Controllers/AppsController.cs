@@ -16,7 +16,7 @@ namespace WebApplication6.Controllers
     {
         private string AppsFolder = HttpRuntime.AppDomainAppPath + "config\\apps";
 
-        [Route("apps/search")]
+        [Route("apps")]
         public dynamic Get()
         {
             // not used in this example, but you can use this to return user-specific applications
