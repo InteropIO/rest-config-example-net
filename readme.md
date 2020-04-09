@@ -1,31 +1,28 @@
-# Glue42 configuration service example
+# Glue42 Configuration Service Example
 
-This example project shows how to run an ASP .NET REST service that provides applications and layouts stores for a Glue42 instance.
+[**Glue42 Enterprise**](https://glue42.com/desktop-enterprise/) uses application and layout configurations defined on the local machine, but can also be reconfigured to fetch them from a REST service.
 
-By Glue42 uses applications/layouts defined on the local machine, but can be re-configured to point to a REST service.
+This example project shows how to run an ASP .NET REST service that provides [application](https://docs.glue42.com/glue42-concepts/application-management/overview/index.html#application_stores-rest_service_app_stores) and [layout](https://docs.glue42.com/glue42-concepts/windows/layouts/overview/index.html#layout_stores-rest_service_layout_store) stores for **Glue42 Enterprise**.
 
-# Configuration and start
 
-This example will use the applications as defined in JSON format in **config\\apps** folder. These should be in the standard Glue42 application definition format.
+## Configuration and Start
 
-Layouts will be fetched/saved from **config\\layouts** folder.
+This example uses application definitions in JSON format located in the `Glue42RestConfig\config\apps` folder. Layout definitions are fetched from and saved in the `Glue42RestConfig\config\layouts` folder. You can also use your own application definitions, but they must be in the standard Glue42 [application definition](https://docs.glue42.com/developers/configuration/application/index.html) format.
 
 To start:
-* open with Visual Studio 2017 or later
-* restore nuget packages
-* re-build solution
-* press F5 to run
+- open with Visual Studio 2017 or later;
+- restore NuGet packages;
+- rebuild solution;
+- press F5 to run;
 
-# Glue42 Configuration
+## Glue42 Enterprise Configuration
 
-You will need to do two changes to re-configure Glue42 to point to a REST service.
+To enable fetching application and layout definitions from the REST service, you need to edit the `appStores` and `layouts` top-level keys in the **Glue42 Enterprise** `system.json` file, usually located in the `%LOCALAPPDATA%\Tick42\GlueDesktop\config` folder.
 
-For both you will need to edit the `system.json` file located in your Glue42 installation (by default  `%LOCALAPPDATA%\Tick42\GlueDesktop\config` folder)
+### Applications
 
-To enable fetching applications from the REST service, you need to add a new entry to the `appStores` top-level key:
+Find the `appStores` top-level key in the `system.json` file and add a new entry (or replace existing entries) with the following configuration:
 
-* find the appStores top-level key in the system.json
-* add new entry (or replace the existing entries) with teh config bellow
 ```json
 "appStores": [
     {
@@ -36,12 +33,12 @@ To enable fetching applications from the REST service, you need to add a new ent
     }
 ]
 ``` 
-!!! Note that you need to replace **URL** with the actual url of the service 
+*Note that you need to replace **`<URL>`** with the actual URL of the service.* 
 
-To enable fetching/storing layouts from the REST service, you need to update your layouts store to be of type rest and add the correct URL:
+### Layouts
 
-* find the layouts top-level key in the system.json
-* change the store type to rest and set the correct URL
+Find the `layouts` top-level key in the `system.json` file and edit the `store` property - change the `type` to `"rest"` and assign the URL of the service to the `restURL`:
+
 ```json
  "layouts": {
     "store": {
@@ -51,11 +48,8 @@ To enable fetching/storing layouts from the REST service, you need to update you
   } 
 
 ```
+*Note that you need to replace **`<URL>`** with the actual URL of the service.*
 
-!!! Note that you need to replace **URL** with the actual url of the service
-
-# Advanced
+## Advanced
 
 TBD
-
-
