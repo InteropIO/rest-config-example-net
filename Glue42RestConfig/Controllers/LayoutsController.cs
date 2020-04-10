@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Glue42RestConfig.Controllers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,12 @@ using System.Web.Http;
 
 namespace WebApplication6.Controllers
 {
-    /// <summary>
-    /// This controller implements:
-    /// GET layouts -> returns all layouts. In a real implementation this should consider the user that is passed in the request headers
-    /// POST layouts -> creates/updates a layout
-    /// DELETE layouts -> removes a layout (does nothing)
-    /// </summary>
+    [Authorize]
     public class LayoutsController : ApiController
     {
-        private string LayoutsFolder = HttpRuntime.AppDomainAppPath + "config\\layouts";
+        private static string LayoutsFolder = HttpRuntime.AppDomainAppPath + "config\\layouts";
+        private static string DefaultLayoutFile = LayoutsFolder + "\\default.layout";
+        private readonly object defaultLayoutMutex = new object();
 
         // GET api/values
         [Route("layouts")]
@@ -27,7 +25,7 @@ namespace WebApplication6.Controllers
         public dynamic Get()
         {
             // not used in this example, but you can use this to return user-specific layouts
-            string currentUser = GetCurrentUser();
+            string currentUser = this.GetCurrentUser();
 
             List<dynamic> layouts = new List<dynamic>();
             var files = Directory.EnumerateFiles(LayoutsFolder, "*.json");
@@ -52,7 +50,7 @@ namespace WebApplication6.Controllers
         [HttpPost]
         public async void Post()
         {
-            string currentUser = GetCurrentUser();
+            string currentUser = this.GetCurrentUser();
 
             string bodyStr = await Request.Content.ReadAsStringAsync();
             dynamic body = JObject.Parse(bodyStr);
@@ -75,16 +73,46 @@ namespace WebApplication6.Controllers
         [HttpDelete]
         public void Delete(int id)
         {
-            string currentUser = GetCurrentUser();
+            string currentUser = this.GetCurrentUser();
+            // Do nothing in this example
         }
 
-        private string GetCurrentUser()
+        
+        // GET api/values
+        [Route("default")]
+        [HttpGet]
+        public dynamic GetDefaultLayout()
         {
-            if (Request.Headers.Contains("user"))
+            // not used in this example, but you can use this to return user-specific layouts
+            string currentUser = this.GetCurrentUser();
+
+            // read __default.layout file and return the string in it
+            lock (defaultLayoutMutex)
             {
-                return Request.Headers.GetValues("user").FirstOrDefault();
+                try
+                {
+                    string defaultLayoutName = File.ReadAllText(DefaultLayoutFile);
+                    return new { name = defaultLayoutName };
+                }
+                catch
+                {                    
+                }
+                return null;
             }
-            return String.Empty;
+        }
+
+        [Route("default")]
+        [HttpPost]
+        public async void SaveDefaultLayout()
+        {
+            // save the name of the  in __default.layout file
+            string bodyStr = await Request.Content.ReadAsStringAsync();
+            dynamic body = JObject.Parse(bodyStr);
+            string layoutName = body.name;
+            lock (defaultLayoutMutex)
+            {
+                File.WriteAllText(DefaultLayoutFile, layoutName);
+            }
         }
     }
 }

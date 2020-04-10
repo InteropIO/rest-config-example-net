@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Glue42RestConfig.Controllers;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,7 @@ using System.Web.Http;
 
 namespace WebApplication6.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
+    [Authorize]
     public class AppsController : ApiController
     {
         private string AppsFolder = HttpRuntime.AppDomainAppPath + "config\\apps";
@@ -20,7 +19,7 @@ namespace WebApplication6.Controllers
         public dynamic Get()
         {
             // not used in this example, but you can use this to return user-specific applications
-            string currentUser = GetCurrentUser();
+            string currentUser = this.GetCurrentUser();
 
             List<dynamic> apps = new List<dynamic>();
 
@@ -62,15 +61,6 @@ namespace WebApplication6.Controllers
                 manifestType = "Glue42",
                 manifest = JsonConvert.SerializeObject(config)
             };
-        }
-
-        private string GetCurrentUser()
-        {
-            if (Request.Headers.Contains("user"))
-            {
-                return Request.Headers.GetValues("user").FirstOrDefault();
-            }
-            return String.Empty;
         }
     }
 }

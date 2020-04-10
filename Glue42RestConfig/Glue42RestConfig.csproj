@@ -158,6 +158,7 @@
     <Compile Include="Controllers\AppsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LayoutsController.cs" />
+    <Compile Include="Controllers\Utils.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -200,9 +201,6 @@
     <Content Include="config\apps\gns.json" />
     <Content Include="config\apps\gss.json" />
     <Content Include="config\apps\portfolio-preview.json" />
-    <Content Include="config\layouts\23.json" />
-    <Content Include="config\layouts\3232.json" />
-    <Content Include="config\layouts\client-list-portfolio.json" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -226,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="config\layouts\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
