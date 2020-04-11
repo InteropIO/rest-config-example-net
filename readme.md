@@ -33,7 +33,7 @@ Find the `appStores` top-level key in the `system.json` file and add a new entry
     }
 ]
 ``` 
-*Note that you need to replace **`<URL>`** with the actual URL of the service.* 
+*Note that you need to replace **`<URL>`** with the actual base URL of the service.* 
 
 ### Layouts
 
@@ -48,7 +48,7 @@ Find the `layouts` top-level key in the `system.json` file and edit the `store` 
   } 
 
 ```
-*Note that you need to replace **`<URL>`** with the actual URL of the service.*
+*Note that you need to replace **`<URL>`** with the actual base URL of the service.*
 
 ## User identity
 In this example the user calling the service is not considered, the data returned is the same for any user. In a real application you might want to return a different set of applications per user, or to store layouts per user.
