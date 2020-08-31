@@ -79,7 +79,7 @@ namespace WebApplication6.Controllers
 
         
         // GET api/values
-        [Route("default")]
+        [Route("layouts/default")]
         [HttpGet]
         public dynamic GetDefaultLayout()
         {
@@ -101,7 +101,7 @@ namespace WebApplication6.Controllers
             }
         }
 
-        [Route("default")]
+        [Route("layouts/default")]
         [HttpPost]
         public async void SaveDefaultLayout()
         {
